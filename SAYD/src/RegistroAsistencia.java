@@ -39,7 +39,7 @@ public class RegistroAsistencia extends JFrame {
 	private JTextField ApellidoAl;
 	private JTable tablaDatosGen;
 	private JTextField txtFechaHoy;
-	String pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\melissaartavia.jpg"; 
+	String pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\ODK.png"; 
 	//String pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\gabrielaarias.png";
 	
 	
@@ -65,6 +65,7 @@ public class RegistroAsistencia extends JFrame {
 	 */
 	
 	Connection conn = null; // set the connection
+	private JTable tablePagos;
 	
 	
 	public RegistroAsistencia() {
@@ -103,7 +104,7 @@ public class RegistroAsistencia extends JFrame {
 		ApellidoAl.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 222, 559, 113);
+		scrollPane.setBounds(20, 222, 278, 113);
 		contentPane.add(scrollPane);
 		
 		tablaDatosGen = new JTable();
@@ -158,13 +159,23 @@ public class RegistroAsistencia extends JFrame {
 						+ ",Alumnos.[Apellido 1]"
 						+ ",Alumnos.[Apellido 2]"
 						+ ",Alumnos.Mensualidad"
-						+ ",Pagos.Mes"
+						+ " From Alumnos"
+						+ " Where Nombre = '"+ nombreAlumno +"' and [Apellido 1] = '" + apellidoAlumno +"'";
+				
+				String queryPagos =  "select "
+						+"Pagos.Mes "
 						+ ",Pagos.Fecha_pago"
 						+ ",Pagos.Monto_pago"
 						+ " From Alumnos inner join Pagos"
-						+ " on Alumnos.Id_Alumno = Pagos.ID_pago"
+						+ " on Alumnos.Id_Alumno = Pagos.ID_Alumno"
 						+ " Where Nombre = '"+ nombreAlumno +"' and [Apellido 1] = '" + apellidoAlumno +"' and Monto_pago > 8000";
-				JOptionPane.showMessageDialog(null, queryalumno);
+				
+				
+				pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\" +nombreAlumno+apellidoAlumno+".png";
+				labelFoto.setIcon(new ImageIcon(pathImagen));
+				Foto.add(labelFoto);
+				validate();
+				
 				
 				try {
 					
@@ -173,6 +184,12 @@ public class RegistroAsistencia extends JFrame {
 					// crear un result set
 					ResultSet rs1 = stmt.executeQuery(queryalumno); // esta linea crea un result set con el query que definimos en la variable query
 					tablaDatosGen.setModel(DbUtils.resultSetToTableModel(rs1));
+					
+					Statement stmt2 = conn.createStatement();
+					ResultSet rs2 = stmt2.executeQuery(queryPagos); // esta linea crea un result set con el query que definimos en la variable query
+					tablePagos.setModel(DbUtils.resultSetToTableModel(rs2));
+					
+					
 					
 				} catch (Exception i) {
 					JOptionPane.showMessageDialog(null, "A ocurrido un error de conexion " + i);
@@ -185,5 +202,20 @@ public class RegistroAsistencia extends JFrame {
 		});
 		btnBuscarAlumno.setBounds(202, 91, 129, 23);
 		contentPane.add(btnBuscarAlumno);
+		
+		JLabel lblDatosDelAtleta = new JLabel("Datos del Atleta");
+		lblDatosDelAtleta.setBounds(20, 197, 104, 14);
+		contentPane.add(lblDatosDelAtleta);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(344, 221, 343, 114);
+		contentPane.add(scrollPane_1);
+		
+		tablePagos = new JTable();
+		scrollPane_1.setViewportView(tablePagos);
+		
+		JLabel lblHistorialDelPagos = new JLabel("Historial del pagos");
+		lblHistorialDelPagos.setBounds(346, 197, 202, 14);
+		contentPane.add(lblHistorialDelPagos);
 	}
 }
