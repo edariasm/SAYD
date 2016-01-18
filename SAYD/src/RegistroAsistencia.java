@@ -40,7 +40,7 @@ public class RegistroAsistencia extends JFrame {
 	private JTable tablaDatosGen;
 	private JTextField txtFechaHoy;
 	String pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\ODK.png"; 
-	//String pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\gabrielaarias.png";
+	
 	
 	
 
