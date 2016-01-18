@@ -32,12 +32,6 @@ public class MainMenu extends JFrame {
 
 	private JPanel contentPane;
 
-	private static final String USERNAME="USER1";
-	private static final String PASSWORD="test";
-	private static final String CONN_STRING="jdbc:sqlserver://WKSWUSJO0954;databaseName=ODK";
-	
-	
-	
 	
 	/**
 	 * Launch the application.

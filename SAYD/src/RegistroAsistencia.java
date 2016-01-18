@@ -39,6 +39,8 @@ public class RegistroAsistencia extends JFrame {
 	private JTextField ApellidoAl;
 	private JTable tablaDatosGen;
 	private JTextField txtFechaHoy;
+	String pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\melissaartavia.jpg"; 
+	//String pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\gabrielaarias.png";
 	
 	
 
@@ -115,9 +117,8 @@ public class RegistroAsistencia extends JFrame {
 		
 		JLabel labelFoto = new JLabel("");
 		labelFoto.setBounds(28, 11, 175, 149);
-		//Image img = new ImageIcon(this.getClass().getResource("/ODKLogo.png")).getImage();
-
-		labelFoto.setIcon(new ImageIcon("C:\\Users\\301759\\Documents\\ODK\\SAYD\\gabrielaarias.png"));
+		//labelFoto.setIcon(new ImageIcon("C:\\Users\\301759\\Documents\\ODK\\SAYD\\gabrielaarias.png"));
+		labelFoto.setIcon(new ImageIcon(pathImagen));
 		Foto.add(labelFoto);
 		validate();
 		
