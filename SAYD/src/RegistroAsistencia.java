@@ -28,18 +28,25 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.util.Calendar;
 
 public class RegistroAsistencia extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField NombreAl;
-	private JTextField ApellidoAl;
+	private JTextField txtApellidoAl;
 	private JTable tablaDatosGen;
 	private JTextField txtFechaHoy;
 	String pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\ODK.png"; 
+	
+	
+	
 	
 	
 	
@@ -66,6 +73,7 @@ public class RegistroAsistencia extends JFrame {
 	
 	Connection conn = null; // set the connection
 	private JTable tablePagos;
+	private JTextField txtFechadeHoy;
 	
 	
 	public RegistroAsistencia() {
@@ -77,7 +85,7 @@ public class RegistroAsistencia extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		Date fechahoy = new Date();
+		
 		
 		
 		
@@ -98,10 +106,10 @@ public class RegistroAsistencia extends JFrame {
 		lblApellido.setBounds(20, 95, 46, 14);
 		contentPane.add(lblApellido);
 		
-		ApellidoAl = new JTextField();
-		ApellidoAl.setBounds(76, 92, 86, 20);
-		contentPane.add(ApellidoAl);
-		ApellidoAl.setColumns(10);
+		txtApellidoAl = new JTextField();
+		txtApellidoAl.setBounds(76, 92, 86, 20);
+		contentPane.add(txtApellidoAl);
+		txtApellidoAl.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 222, 278, 113);
@@ -127,16 +135,50 @@ public class RegistroAsistencia extends JFrame {
 		lblFecha.setBounds(20, 380, 46, 14);
 		contentPane.add(lblFecha);
 		
-		txtFechaHoy = new JTextField();
-		txtFechaHoy.setBounds(64, 377, 129, 20);
-		contentPane.add(txtFechaHoy);
-		txtFechaHoy.setColumns(10);
-		txtFechaHoy.setText(fechahoy.toString());
+		
 		
 		JButton btnRegistrarAsistencia = new JButton("Registrar Asistencia");
 		btnRegistrarAsistencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				
+				try {
+					
+					
+					
+					 
+					String nombreAlumno = NombreAl.getText();
+					String todayDate = txtFechadeHoy.getText();
+					String ApellidoAl = txtApellidoAl.getText();
+
+					String queryID = "Select Id_alumno from Alumnos where Nombre = '"+ nombreAlumno + "' and [Apellido 1] = '" + ApellidoAl +"'";
+					
+					Statement stmtINS = conn.createStatement(); 
+					ResultSet rs3 = stmtINS.executeQuery(queryID);
+					
+					while (rs3.next()) {
+				        String idAlumno = rs3.getString("ID_Alumno");
+				        String queryInsAsistencia = "Insert into Asistencia(Id_Alumno, Fecha) values (" + idAlumno + ",'"+todayDate+"')";				 
+						stmtINS.executeUpdate(queryInsAsistencia); 
+						JOptionPane.showMessageDialog(null, "Feliz entrenamiento ");
+						
+				        
+				              
+				    }
+					
+					
+					
+				} catch (Exception i) {
+					//JOptionPane.showMessageDialog(null, "Ocurrio un error de conexion al insertar"+ i);
+				}
+				
+				
+			
 			}
+			
+			
 		});
 		btnRegistrarAsistencia.setBounds(10, 429, 189, 23);
 		contentPane.add(btnRegistrarAsistencia);
@@ -153,7 +195,7 @@ public class RegistroAsistencia extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String nombreAlumno = NombreAl.getText();
-				String apellidoAlumno = ApellidoAl.getText();
+				String apellidoAlumno = txtApellidoAl.getText();
 				String queryalumno = "select "
 						+ "Alumnos.Nombre"
 						+ ",Alumnos.[Apellido 1]"
@@ -163,7 +205,7 @@ public class RegistroAsistencia extends JFrame {
 						+ " Where Nombre = '"+ nombreAlumno +"' and [Apellido 1] = '" + apellidoAlumno +"'";
 				
 				String queryPagos =  "select "
-						+"Pagos.Mes "
+						+ " Pagos.Mes "
 						+ ",Pagos.Fecha_pago"
 						+ ",Pagos.Monto_pago"
 						+ " From Alumnos inner join Pagos"
@@ -171,7 +213,7 @@ public class RegistroAsistencia extends JFrame {
 						+ " Where Nombre = '"+ nombreAlumno +"' and [Apellido 1] = '" + apellidoAlumno +"' and Monto_pago > 8000";
 				
 				
-				pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\" +nombreAlumno+apellidoAlumno+".png";
+				pathImagen = "C:\\Users\\301759\\Documents\\ODK\\SAYD\\" +nombreAlumno+apellidoAlumno+".jpg";
 				labelFoto.setIcon(new ImageIcon(pathImagen));
 				Foto.add(labelFoto);
 				validate();
@@ -183,7 +225,9 @@ public class RegistroAsistencia extends JFrame {
 					Statement stmt = conn.createStatement(); 
 					// crear un result set
 					ResultSet rs1 = stmt.executeQuery(queryalumno); // esta linea crea un result set con el query que definimos en la variable query
+					//IdAlumno = rs1.getString("id_alumno");
 					tablaDatosGen.setModel(DbUtils.resultSetToTableModel(rs1));
+					
 					
 					Statement stmt2 = conn.createStatement();
 					ResultSet rs2 = stmt2.executeQuery(queryPagos); // esta linea crea un result set con el query que definimos en la variable query
@@ -192,7 +236,7 @@ public class RegistroAsistencia extends JFrame {
 					
 					
 				} catch (Exception i) {
-					JOptionPane.showMessageDialog(null, "A ocurrido un error de conexion " + i);
+					//JOptionPane.showMessageDialog(null, " Error de conexion " + i);
 				}	
 				
 				 
@@ -217,5 +261,24 @@ public class RegistroAsistencia extends JFrame {
 		JLabel lblHistorialDelPagos = new JLabel("Historial del pagos");
 		lblHistorialDelPagos.setBounds(346, 197, 202, 14);
 		contentPane.add(lblHistorialDelPagos);
+		
+		txtFechadeHoy = new JTextField();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		String sDate= sdf.format(date);
+		String year1 = sDate.toString();
+		txtFechadeHoy.setText(year1);
+		txtFechadeHoy.setBounds(60, 377, 86, 20);
+		contentPane.add(txtFechadeHoy);
+		txtFechadeHoy.setColumns(10);
+		
+		JButton btnMenuPrincipal = new JButton("Menu Principal");
+		btnMenuPrincipal.setBounds(10, 535, 189, 23);
+		contentPane.add(btnMenuPrincipal);
+		
+		JButton btnRealizarPago = new JButton("Realizar Pago");
+		btnRealizarPago.setBounds(255, 535, 183, 23);
+		contentPane.add(btnRealizarPago);
 	}
 }
