@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Date;
 
 import java.sql.ResultSetMetaData;
@@ -32,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 import java.util.Calendar;
@@ -79,12 +81,13 @@ public class RegistroAsistencia extends JFrame {
 	public RegistroAsistencia() {
 		
 		conn = conectionTest.conectaraDB(); // establishes connection
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 833, 634);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		
 		
@@ -274,11 +277,43 @@ public class RegistroAsistencia extends JFrame {
 		txtFechadeHoy.setColumns(10);
 		
 		JButton btnMenuPrincipal = new JButton("Menu Principal");
+		btnMenuPrincipal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				MainMenu mm = new MainMenu();
+				mm.setVisible(true);
+				close();
+			}
+		});
 		btnMenuPrincipal.setBounds(10, 535, 189, 23);
 		contentPane.add(btnMenuPrincipal);
 		
 		JButton btnRealizarPago = new JButton("Realizar Pago");
+		btnRealizarPago.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				Cobros cc;
+				try {
+					cc = new Cobros();
+					cc.setVisible(true);
+					close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
 		btnRealizarPago.setBounds(255, 535, 183, 23);
 		contentPane.add(btnRealizarPago);
 	}
+	
+	public void close(){
+
+		WindowEvent winClosingEvent = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+
+		}
 }

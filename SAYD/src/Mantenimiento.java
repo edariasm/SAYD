@@ -117,7 +117,7 @@ public class Mantenimiento extends JFrame {
 		btnAsistencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ReporteAlumnos ra = new ReporteAlumnos();
+				RegistroAsistencia ra = new RegistroAsistencia();
 				ra.setVisible(true);
 				close();
 				
