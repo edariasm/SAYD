@@ -409,6 +409,18 @@ public class Cobros extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
+		JButton btnAsistencia = new JButton("Registro Asistencia");
+		btnAsistencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			RegistroAsistencia ra = new RegistroAsistencia();
+			ra.setVisible(true);
+			close();
+			}
+		});
+		btnAsistencia.setBounds(427, 405, 165, 23);
+		contentPane.add(btnAsistencia);
+		
 		
 	}
 	
