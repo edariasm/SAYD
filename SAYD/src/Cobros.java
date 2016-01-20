@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.awt.print.PrinterException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +32,8 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JEditorPane;
 
 public class Cobros extends JFrame {
 
@@ -284,6 +287,45 @@ public class Cobros extends JFrame {
 		contentPane.add(btnRegistrarPago);
 		
 		JButton btnImprimirRecibo = new JButton("Imprimir recibo");
+		btnImprimirRecibo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String odkReceiptTitle = "Academia de Taekwondo"; 
+				String academia = "Oh Do Kwan";
+				String odkReceiptSubtitle = "Recibo por dinero";
+				String estudiante = txtNombre.getText() + " " + txtApellido.getText();
+				String fechadepago = txtfechaPago.getText();
+				String montopagado = txtMontoPago.getText();
+				String conceptopago = txtConceptoPago.getText();
+				String cuerporeceipt = conceptopago;
+				
+				JTextArea txtReceipt = new JTextArea();
+				txtReceipt.setBounds(502, 11, 189, 180);
+				contentPane.add(txtReceipt);
+								
+				txtReceipt.setText(odkReceiptTitle + "\n" + 
+				academia + "\n" +
+				odkReceiptSubtitle + "\n" +
+				fechadepago + "\n" +
+				"Recibi de : " + estudiante + "\n" +
+				"La suma de " + montopagado + "\n" + 
+				"Por concepto de: " + cuerporeceipt + "\n" + "\n" +
+				"Ing. Edgar Arias Mora" + "\n" +
+				"Cedula 1-0902-0561" + "\n" +
+				"Licencia Federada CRC-1617"); 
+				
+				
+				/**try {
+				//	print code comes here
+					
+				}
+				
+				catch (PrinterException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} // end of catch */
+			}
+		}); 
 		btnImprimirRecibo.setBounds(149, 405, 122, 23);
 		contentPane.add(btnImprimirRecibo);
 		
@@ -420,6 +462,8 @@ public class Cobros extends JFrame {
 		});
 		btnAsistencia.setBounds(427, 405, 165, 23);
 		contentPane.add(btnAsistencia);
+		
+		
 		
 		
 	}
