@@ -197,7 +197,7 @@ public class Cobros extends JFrame {
 				
 			}
 		});
-		btnBuscarAtleta.setBounds(30, 121, 122, 23);
+		btnBuscarAtleta.setBounds(339, 96, 122, 23);
 		contentPane.add(btnBuscarAtleta);
 		
 		JLabel lblNombre = new JLabel("Nombre");
@@ -339,13 +339,13 @@ public class Cobros extends JFrame {
 		txtNombre = new JTextField();
 		txtNombre.setText("Nombre");
 		txtNombre.setToolTipText("");
-		txtNombre.setBounds(168, 122, 148, 20);
+		txtNombre.setBounds(10, 97, 148, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtApellido = new JTextField();
 		txtApellido.setText("Apellido");
-		txtApellido.setBounds(340, 122, 139, 20);
+		txtApellido.setBounds(179, 97, 139, 20);
 		contentPane.add(txtApellido);
 		txtApellido.setColumns(10);
 		
