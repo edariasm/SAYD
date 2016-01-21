@@ -309,21 +309,22 @@ public class Cobros extends JFrame {
 				fechadepago + "\n" +
 				"Recibi de : " + estudiante + "\n" +
 				"La suma de " + montopagado + "\n" + 
-				"Por concepto de: " + cuerporeceipt + "\n" + "\n" +
+				"Por concepto de: " + "\n" +
+				cuerporeceipt + "\n" + "\n" +
 				"Ing. Edgar Arias Mora" + "\n" +
 				"Cedula 1-0902-0561" + "\n" +
 				"Licencia Federada CRC-1617"); 
 				
 				
-				/**try {
-				//	print code comes here
+				try {
+					txtReceipt.print();
 					
 				}
 				
 				catch (PrinterException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} // end of catch */
+				} // end of catch 
 			}
 		}); 
 		btnImprimirRecibo.setBounds(149, 405, 122, 23);
