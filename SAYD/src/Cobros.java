@@ -290,10 +290,11 @@ public class Cobros extends JFrame {
 		btnImprimirRecibo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				
 				String odkReceiptTitle = "Academia"; 
 				String academia = "Oh Do Kwan";
 				String odkReceiptSubtitle = "Recibo por dinero";
-				String estudiante = txtNombre.getText() + " " + txtApellido.getText();
+				String estudiante = nombreAtl.getText() + " " + apellido1.getText();
 				String fechadepago = txtfechaPago.getText();
 				String montopagado = txtMontoPago.getText();
 				String conceptopago = txtConceptoPago.getText();
@@ -308,8 +309,10 @@ public class Cobros extends JFrame {
 				odkReceiptSubtitle + "\n" +
 				fechadepago + "\n" +
 				"Recibi de : " + estudiante + "\n" +
-				"La suma de " + montopagado + "\n" + 
-				"Por concepto de: " + "\n" +
+				"La suma de " + "\n" +
+				+ montopagado + "\n" + 
+				"Por concepto de: " + "\n" + 
+				
 				cuerporeceipt + "\n" + "\n" +
 				"Ing. Edgar Arias Mora" + "\n" +
 				"Ced. 1-0902-0561" + "\n" +
