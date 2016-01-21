@@ -290,7 +290,7 @@ public class Cobros extends JFrame {
 		btnImprimirRecibo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String odkReceiptTitle = "Academia de Taekwondo"; 
+				String odkReceiptTitle = "Academia"; 
 				String academia = "Oh Do Kwan";
 				String odkReceiptSubtitle = "Recibo por dinero";
 				String estudiante = txtNombre.getText() + " " + txtApellido.getText();
@@ -312,8 +312,9 @@ public class Cobros extends JFrame {
 				"Por concepto de: " + "\n" +
 				cuerporeceipt + "\n" + "\n" +
 				"Ing. Edgar Arias Mora" + "\n" +
-				"Cedula 1-0902-0561" + "\n" +
-				"Licencia Federada CRC-1617"); 
+				"Ced. 1-0902-0561" + "\n" +
+				"Licencia Federada "+ "\n" +
+				+ "CRC-1617"); 
 				
 				
 				try {
